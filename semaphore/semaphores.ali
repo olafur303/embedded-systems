@@ -1,0 +1,79 @@
+V "GNAT Lib v2020"
+P ZX
+
+RN
+RV SIMPLE_BARRIERS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_PROTECTED_TYPES
+RV NO_STANDARD_STORAGE_POOLS
+RV MAX_PROTECTED_ENTRIES=2
+
+U semaphores%b		semaphores.adb		f8537e45 NE OO PK
+Z ada.tags%s		a-tags.adb		a-tags.ali
+Z system%s		system.ads		system.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.entries%s  s-tpoben.adb  s-tpoben.ali
+Z system.tasking.protected_objects.operations%s  s-tpobop.adb  s-tpobop.ali
+
+U semaphores%s		semaphores.ads		248bdb06 EE NE OO PK
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+Z system%s		system.ads		system.ali
+Z system.tasking%s	s-taskin.adb		s-taskin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.entries%s  s-tpoben.adb  s-tpoben.ali
+
+D ada.ads		20200819050642 76789da1 ada%s
+D a-except.ads		20200819050642 a7106115 ada.exceptions%s
+D a-finali.ads		20200819050642 bf4f806b ada.finalization%s
+D a-stream.ads		20200819050642 119b8fb3 ada.streams%s
+D a-tags.ads		20200819050643 edddc8f0 ada.tags%s
+D a-unccon.ads		20200819050643 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20200819050644 5ab55268 interfaces%s
+D i-c.ads		20200819050644 c624fa43 interfaces.c%s
+D semaphores.ads	20200510141315 248bdb06 semaphores%s
+D semaphores.adb	20200830112220 dcd8a543 semaphores%b
+D system.ads		20200819050647 085b6ffb system%s
+D s-atacco.ads		20200819050645 4c36d12f system.address_to_access_conversions%s
+D s-exctab.ads		20200819050645 54135002 system.exception_table%s
+D s-finroo.ads		20200819050645 4ff27390 system.finalization_root%s
+D s-multip.ads		20200819050645 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20200819111918 49f7716a system.os_constants%s
+D s-osinte.ads		20200819050640 01b3ad47 system.os_interface%s
+D s-parame.ads		20200819050646 4752c4cb system.parameters%s
+D s-secsta.ads		20200819050646 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20200819050646 a7318a92 system.soft_links%s
+D s-stache.ads		20200819050646 a37c21ec system.stack_checking%s
+D s-stausa.ads		20200819050646 017a0a05 system.stack_usage%s
+D s-stalib.ads		20200819050646 6b7a13f2 system.standard_library%s
+D s-stoele.ads		20200819050646 2dc34a04 system.storage_elements%s
+D s-tasinf.ads		20200819050641 801abd01 system.task_info%s
+D s-taspri.ads		20200819050641 f40ac08d system.task_primitives%s
+D s-taskin.ads		20200819050641 88fba9ad system.tasking%s
+D s-taprob.ads		20200819050641 acd6094d system.tasking.protected_objects%s
+D s-tpoben.ads		20200819050641 60ad3dae system.tasking.protected_objects.entries%s
+D s-tpobop.ads		20200819050641 5f548bb3 system.tasking.protected_objects.operations%s
+D s-traent.ads		20200819050646 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20200819050646 5ecf7212 system.unsigned_types%s
+G a e
+G c Z s b [wait semaphores__countingsemaphore 7 13 none]
+G c Z s b [signal semaphores__countingsemaphore 8 13 none]
+G c Z s s [countingsemaphoreVDI semaphores 6 4 none]
+G c Z s s [countingsemaphoreVDF semaphores 6 4 none]
+G c Z s s [countingsemaphoreVIP semaphores 6 4 none]
+X 9 semaphores.ads
+5K9*Semaphores 13l5 13e15 10|5b14 23l5 23t15
+6W19*CountingSemaphore 6d37 6d51 10E7 12l8 12e25 10|6b19 22l8 22t25
+6i37 Max{natural} 11r29
+6i51 Initial{natural} 10r26
+7Y13 Wait 10|8b13 13l16 13t20
+8Y13 Signal 10|15b13 20l11 20t17
+10i7 Count{natural} 10|8r23 11r15 11r24 15r25 18r15 18r24
+11i7 MaxCount{natural} 10|15r33
+X 22 s-stausa.ads
+208U14*Initialize 209i<c,__gnat_stack_usage_initialize>22
+273U14*Output_Results 277i<c,__gnat_stack_usage_output_results>22
+
