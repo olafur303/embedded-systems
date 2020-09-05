@@ -1,0 +1,160 @@
+V "GNAT Lib v2020"
+M P W=b
+P SS ZX
+
+RN
+RV NO_DELAY
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_SELECT_STATEMENTS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_TASK_HIERARCHY
+RV NO_TASKING
+RV NO_TERMINATE_ALTERNATIVES
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ATTRIBUTES
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+RV MAX_SELECT_ALTERNATIVES=3
+RV MAX_TASK_ENTRIES=2
+RV MAX_TASKS=1+
+
+U producerconsumer_rndzvs%b  producerconsumer_rndzvs.adb  a4b6d701 NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.numerics%s	a-numeri.ads		a-numeri.ali
+W ada.numerics.discrete_random%s
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
+Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z interfaces%s		interfac.ads		interfac.ali
+W system%s		system.ads		system.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+Z system.parameters%s	s-parame.adb		s-parame.ali
+Z system.random_numbers%s  s-rannum.adb		s-rannum.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.task_info%s	s-tasinf.adb		s-tasinf.ali
+Z system.tasking%s	s-taskin.adb		s-taskin.ali
+Z system.tasking.rendezvous%s  s-tasren.adb	s-tasren.ali
+Z system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+
+D ada.ads		20200819050642 76789da1 ada%s
+D a-except.ads		20200819050642 a7106115 ada.exceptions%s
+D a-finali.ads		20200819050642 bf4f806b ada.finalization%s
+D a-ioexce.ads		20200819050642 e4a01f64 ada.io_exceptions%s
+D a-numeri.ads		20200819050642 bb51c45a ada.numerics%s
+D a-nudira.ads		20200819050642 5984dff3 ada.numerics.discrete_random%s
+D a-nudira.adb		20200819050642 0bfd6ec4 ada.numerics.discrete_random%b
+D a-reatim.ads		20200819050640 0240fc73 ada.real_time%s
+D a-retide.ads		20200819050640 081cdaa4 ada.real_time.delays%s
+D a-stream.ads		20200819050642 119b8fb3 ada.streams%s
+D a-tags.ads		20200819050643 edddc8f0 ada.tags%s
+D a-textio.ads		20200819050643 aef4d56d ada.text_io%s
+D a-unccon.ads		20200819050643 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20200819050644 5ab55268 interfaces%s
+D i-c.ads		20200819050644 c624fa43 interfaces.c%s
+D i-cstrea.ads		20200819050644 e53d8b8e interfaces.c_streams%s
+D producerconsumer_rndzvs.adb  20200905150754 518621ec producerconsumer_rndzvs%b
+D system.ads		20200819050647 085b6ffb system%s
+D s-atacco.ads		20200819050645 4c36d12f system.address_to_access_conversions%s
+D s-conca3.ads		20200819050645 0b705ca5 system.concat_3%s
+D s-crtl.ads		20200819050645 0ebbdb71 system.crtl%s
+D s-exctab.ads		20200819050645 54135002 system.exception_table%s
+D s-ficobl.ads		20200819050645 078245e4 system.file_control_block%s
+D s-finroo.ads		20200819050645 4ff27390 system.finalization_root%s
+D s-imgint.ads		20200819050645 02dbe0c2 system.img_int%s
+D s-imguns.ads		20200819050645 9ff43cf7 system.img_uns%s
+D s-multip.ads		20200819050645 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20200819111918 49f7716a system.os_constants%s
+D s-osinte.ads		20200819050640 01b3ad47 system.os_interface%s
+D s-parame.ads		20200819050646 4752c4cb system.parameters%s
+D s-rannum.ads		20200819050646 99ade2f2 system.random_numbers%s
+D s-rannum.adb		20200819050646 5f999925 system.random_numbers%b
+D s-ransee.ads		20200819050646 01a57b33 system.random_seed%s
+D s-secsta.ads		20200819050646 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20200819050646 a7318a92 system.soft_links%s
+D s-stache.ads		20200819050646 a37c21ec system.stack_checking%s
+D s-stausa.ads		20200819050646 017a0a05 system.stack_usage%s
+D s-stalib.ads		20200819050646 6b7a13f2 system.standard_library%s
+D s-stoele.ads		20200819050646 2dc34a04 system.storage_elements%s
+D s-tasinf.ads		20200819050641 801abd01 system.task_info%s
+D s-taspri.ads		20200819050641 f40ac08d system.task_primitives%s
+D s-taprop.ads		20200819050641 6eefbe12 system.task_primitives.operations%s
+D s-taskin.ads		20200819050641 88fba9ad system.tasking%s
+D s-taprob.ads		20200819050641 acd6094d system.tasking.protected_objects%s
+D s-tpoben.ads		20200819050641 60ad3dae system.tasking.protected_objects.entries%s
+D s-tasren.ads		20200819050641 a67a9949 system.tasking.rendezvous%s
+D s-tassta.ads		20200819050641 cca55c94 system.tasking.stages%s
+D s-traent.ads		20200819050646 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20200819050646 5ecf7212 system.unsigned_types%s
+D s-valuns.ads		20200819050646 35067db9 system.val_uns%s
+D s-wchcon.ads		20200819050646 1b7d22d2 system.wch_con%s
+G a e
+G c Z b b [producerconsumer_rndzvs standard 7 11 none]
+X 1 ada.ads
+16K9*Ada 20e8 17|1r6 1r23 3r6 3r25 5r6 16r32
+X 5 a-numeri.ads
+16K13*Numerics 32e17 17|5r10 16r36
+X 6 a-nudira.ads
+44k22*Discrete_Random 81e33 17|5w19 16r45
+50R9 Generator<31|63R9> 17|20r8[16]
+52V13 Random{integer} 17|102s18[16] 110s39[16] 134s39[16]
+X 7 a-nudira.adb
+53V16 Random[31|83]{integer} 32|393b13[17|16]
+65V16 Random[31|83]{integer} 32|393b13[17|16]
+X 8 a-reatim.ads
+39K13*Real_Time 185e18 17|3w10 3r29
+49O9*Time<duration> 17|92r14 120r14
+54O9*Time_Span<duration>
+61V13*Clock{49O9} 17|98s15 126s15
+65V14*"+"{49O9} 17|110s23 134s23
+119V13*Milliseconds{54O9} 17|110s25 134s25
+X 12 a-textio.ads
+57K13*Text_IO 727e16 17|1w10 1r27
+508U14*Put_Line 17|61s19 77s19 106s10 132s10
+X 14 interfac.ads
+74M9*Unsigned_32
+77M9*Unsigned_64
+X 17 producerconsumer_rndzvs.adb
+7U11*ProducerConsumer_Rndzvs 7b11 148l5 148t28
+9i4 N{integer} 51r35 100r21 128r21
+11i4 X{integer} 142r34 144r34
+14I12 Delay_Interval{integer} 16r62
+16K12 Random_Delay[6|44] 18r8
+20r4 G{6|50R9[16]} 102r25 110r47 134r47
+22t9 Buffer 34b14 88l8 88t14 104r10 130r10
+24Y13 Append 24>20 53b23 63l20 63t26 104s17
+24i20 I{integer} 55r32 61r64
+26Y13 Take 26<19 69b23 79l20 79t24 130s17
+26i19 I{integer} 71m19 71r19 77r67
+30T14 Producer 90b14 116l8 116t16 142r40
+32T14 Consumer 118b14 140l8 140t16 144r40
+36i7 Size{integer} 38r25
+38M12 Index 40r33 44r32
+40A12 Item_Array(integer)<38M12> 42r11
+42a7 B{40A12} 55m19 71r24
+44m7 In_Ptr{38M12} 55r21 57m19 57r29
+44m15 Out_Ptr{38M12} 71r26 73m19 73r30
+44m24 Count{38M12} 51r26 59m19 59r28 67r18 75m19 75r28
+53i30 I{integer}
+69i29 I{integer}
+92o7 Next{8|49O9} 98m7 110m10 110r18 112r22
+94i7 Data{integer} 102m10 104r24 106r61
+100i11 I{integer}
+120o7 Next{8|49O9} 126m7 134m10 134r18 136r22
+122i7 Data{integer} 130m22 132r59
+128i11 I{integer}
+142a4 P(30T14)
+144a4 C(32T14)
+X 31 s-rannum.ads
+75V13*Random{14|74M9} 32|221i21
+76V13*Random{14|77M9} 32|221i21
+X 37 s-stausa.ads
+208U14*Initialize 209i<c,__gnat_stack_usage_initialize>22
+273U14*Output_Results 277i<c,__gnat_stack_usage_output_results>22
+
