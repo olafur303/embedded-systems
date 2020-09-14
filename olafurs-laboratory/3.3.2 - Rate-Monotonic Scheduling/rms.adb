@@ -9,10 +9,14 @@ procedure RMS is
    package Duration_IO is new Ada.Text_IO.Fixed_IO(Duration);
    package Int_IO is new Ada.Text_IO.Integer_IO(Integer);
 	
-   Start : Time; -- Start Time of the System
+   Start : constant Time := Clock; -- Start Time of the System
+--Calibrator: constant Integer := 1150; -- Calibration for correct timing
 	Calibrator: constant Integer := 1208; -- Calibration for correct timing
 	                                     -- ==> Change parameter for your architecture!
 	Warm_Up_Time: constant Integer := 100; -- Warmup time in milliseconds
+    HyperperiodLength: Time_Span := Milliseconds(1200);
+    CurrentHyperperiod: Integer := 1;
+    NextHyperperiod: Time:= Start + HyperperiodLength + Milliseconds(Warm_Up_Time);
 	
 	-- Conversion Function: Time_Span to Float
 	function To_Float(TS : Time_Span) return Float is
@@ -53,6 +57,7 @@ procedure RMS is
 		WCRT: Time_Span; -- measured WCRT (Worst Case Response Time)
       Dummy : Integer;
 		Iterations : Integer;
+      Released: Time;
    begin
 		-- Initial Release - Phase
 		Release := Clock + Milliseconds(Phase);
@@ -62,7 +67,13 @@ procedure RMS is
 		Average_Response := 0.0;
 		WCRT := Milliseconds(0);
       loop
-         Next := Release + Milliseconds(Period);
+          Released := Clock;
+            if (Release > NextHyperperiod) then
+                NextHyperperiod := NextHyperperiod + HyperperiodLength;
+                CurrentHyperperiod := CurrentHyperperiod + 1;
+                New_Line(1);
+            end if;
+            Next := Release + Milliseconds(Period);
 			Absolute_Deadline := Release + Milliseconds(Relative_Deadline);
          -- Simulation of User Function
 			for I in 1..Computation_Time loop
@@ -75,10 +86,16 @@ procedure RMS is
 				WCRT := Response;
 			end if;
 			Iterations := Iterations + 1;			
-			Put("Task ");
+			Put("H: ");
+			Int_IO.Put(CurrentHyperperiod, 1);
+			Put(" Task: ");
 			Int_IO.Put(Id, 1);
-			Put("- Release: ");
+            Put(" Period: " );
+			Int_IO.Put(Period, 1);
+			Put(", Release: ");
 			Duration_IO.Put(To_Duration(Release - Start), 2, 3);
+			Put(", Released: ");
+			Duration_IO.Put(To_Duration(Released - Start), 2, 3);
 			Put(", Completion: ");
 			Duration_IO.Put(To_Duration(Completed - Start), 2, 3);
 			Put(", Response: ");
@@ -107,12 +124,11 @@ procedure RMS is
 	                                                   -- Period 2000, 
 	                                                   -- Computation Time: 1000 (if correctly calibrated) 
 	                                                   -- Relative Deadline: 2000
-   Task_1 : T(1, 20, Warm_Up_Time, 300, 100, 300); -- ID: 1
-   Task_2 : T(2, 20, Warm_Up_Time, 400, 100, 400); -- ID: 2
-   Task_3 : T(3, 20, Warm_Up_Time, 600, 100, 600); -- ID: 3
+   Task_1 : T(1, 20 - 3, Warm_Up_Time, 300, 100, 300); -- ID: 1
+   Task_2 : T(2, 20 - 4, Warm_Up_Time, 400, 100, 400); -- ID: 2
+   Task_3 : T(3, 20 - 6, Warm_Up_Time, 600, 100, 600); -- ID: 3
 	
 -- Main Program: Terminates after measuring start time	
 begin
-   Start := Clock; -- Central Start Time
    null;
 end RMS;

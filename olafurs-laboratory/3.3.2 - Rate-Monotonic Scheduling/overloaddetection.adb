@@ -38,10 +38,28 @@ procedure OverloadDetection is
       return X;
    end F;
 	
-    task type WatchdogTimer;
+    task WatchdogTimer is
+      entry Reset;
+
+   end WatchdogTimer;
+
     task body WatchdogTimer is
+        WatchdogPeriod: constant Integer := 100; -- Watchdog timeout
+        Counter: Integer := 100;
+        Next : Time := Clock;
     begin
-        null;
+        Next := Next + Milliseconds(WatchdogPeriod);
+        Counter := Counter - 1;
+        loop
+            select 
+                accept Reset do
+                    Counter := 100;
+                end Reset;
+            or
+                Counter := Counter - 1;
+                delay until Next;
+            end select;
+        end loop;
     end WatchdogTimer;
 
 	-- Workload Model for a Parametric Task
