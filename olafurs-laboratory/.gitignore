@@ -1,3 +1,4 @@
 # ignore build files from gnat
 *.o
 *.ali
+.vagrant
