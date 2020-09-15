@@ -2,3 +2,4 @@
 *.o
 *.ali
 .vagrant
+.DS_Store

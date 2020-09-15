@@ -29,6 +29,7 @@ procedure ProducerConsumer_Sem is
    use Random_Delay;
    G : Generator;
 
+   -- For colored output
    StrProducer : constant String := ASCII.ESC & "[36m" & "Producer" & ASCII.ESC & "[00m";
    StrConsumer : constant String := ASCII.ESC & "[32m" & "Consumer" & ASCII.ESC & "[00m";
 	

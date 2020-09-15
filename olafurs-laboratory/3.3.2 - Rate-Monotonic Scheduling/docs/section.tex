@@ -1,20 +1,11 @@
-\documentclass[12pt]{article}
-\usepackage{graphicx}
-\usepackage{float}
-\title{Laboratory 1}
-\author{
-        Olafur Jonsson \\
-            \and
-        Konstantinos Xyderos \\
-}
-\date{\today}
+\setcounter{section}{3}
+\setcounter{subsection}{3}
+\setcounter{subsubsection}{1}
+\subsubsection{The rate monotonic schedule.}
 
+\begin{enumerate}[label=\textbf{\arabic*})]
+\item \textbf{Calculating utilization}
 
-\begin{document}
-\maketitle
-\subsection*{3.3.2 The rate monotonic schedule.}
-
-\subsection*{1}
 The utilization of a periodic task $\tau_i(T_i,C_i)$ is defined as:
 \[u_i = \frac{C_i}{T_i}\]
 The total utilization for a set of tasks is defined as:
@@ -45,24 +36,23 @@ For one hyperperiod of 1200ms the schedule should look like this:
 
 \includegraphics[width=0.9\linewidth]{1-rate-monotonic-schedule}
 
-\section*{2}
+\item \textbf{Calibrating execution time}
+
 Constraining the execution of the program to use only a single CPU core using taskset was made possible on a macOS system by using a virtual machine. The calibration parameter was set to \textbf{1208} which produced the following output:
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{2-periodictasks-priority-output}
 \end{figure}
-\subsection*{3}
+\item \textbf{Implementing the periodic task set $\Gamma_1$}
 
 Running the rms on a single core produces the following output:
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{3-rms-output}
 \end{figure}
 
-\subsection*{4}
+\item \textbf{Adding the additional task  $\tau_4$}
+
 RMS2 output:
 \begin{figure}[H]
         \includegraphics[width=\linewidth]{4-rms2-output}
 \end{figure}
-
-
-
-\end{document}
+\end{enumerate}

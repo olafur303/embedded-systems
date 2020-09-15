@@ -52,7 +52,7 @@ procedure MixedScheduling is
     end;
 
    task body T is
-      Next : Time;
+        Next : Time;
 		Release: Time;
 		Completed : Time;
 		Response : Time_Span;
