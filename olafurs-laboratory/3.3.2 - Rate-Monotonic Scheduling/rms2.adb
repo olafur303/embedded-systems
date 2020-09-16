@@ -10,13 +10,14 @@ procedure RMS2 is
     package Duration_IO is new Ada.Text_IO.Fixed_IO(Duration);
     package Int_IO is new Ada.Text_IO.Integer_IO(Integer);
 
-    Start : constant Time := Clock; -- Start Time of the System
-    Calibrator: constant Integer := 1208; -- Calibration for correct timing
+    Start : Time; -- Start Time of the System
+    --Calibrator: constant Integer := 1208; -- Calibration for correct timing
+    Calibrator: constant Integer := 1280; -- Calibration for correct timing
     -- ==> Change parameter for your architecture!
     Warm_Up_Time: constant Integer := 100; -- Warmup time in milliseconds
     HyperperiodLength: Time_Span := Milliseconds(1200);
     CurrentHyperperiod: Integer := 1;
-    NextHyperperiod: Time:= Start + HyperperiodLength + Milliseconds(Warm_Up_Time);
+    NextHyperperiod: Time;
 
     -- Conversion Function: Time_Span to Float
     function To_Float(TS : Time_Span) return Float is
@@ -28,7 +29,7 @@ procedure RMS2 is
     end To_Float;
 
     -- Function F is a dummy function that is used to model a running user program.
-    function F(N : Integer) return Integer;
+   function F(N : Integer) return Integer;
 
     function F(N : Integer) return Integer is
         X : Integer := 0;
@@ -61,15 +62,15 @@ procedure RMS2 is
         ColorCode : String := "[" & Trim(Color'Img, Ada.Strings.Left) & "m";
     begin
         -- Initial Release - Phase
-        Release := Clock + Milliseconds(Phase);
+        Release := Start + Milliseconds(Phase);
         delay until Release;
-            Next := Release;
-            Iterations := 0;
-            Average_Response := 0.0;
-            WCRT := Milliseconds(0);
+        Next := Release;
+        Iterations := 0;
+        Average_Response := 0.0;
+        WCRT := Milliseconds(0);
         loop
             Released := Clock;
-            if (Release > NextHyperperiod) then
+            if (Released > NextHyperperiod) then
                 NextHyperperiod := NextHyperperiod + HyperperiodLength;
                 CurrentHyperperiod := CurrentHyperperiod + 1;
                 New_Line(1);
@@ -134,5 +135,7 @@ procedure RMS2 is
 
     -- Main Program: Terminates after measuring start time	
 begin
+    Start  := Clock; -- Start Time of the System
+    NextHyperperiod := Start + HyperperiodLength + Milliseconds(Warm_Up_Time);
     null;
 end RMS2;

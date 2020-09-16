@@ -32,9 +32,9 @@ The hyperperiod $H$ is defined as the least common multiplier from the set of ta
 According to RMS the priorities should therefore be:
 \[P_1 > P_2 > P_3\]
 
-For one hyperperiod of 1200ms the schedule should look like this:
+For one hyperperiod of 1200ms the ideal schedule looks like this:
 
-\includegraphics[width=0.9\linewidth]{1-rate-monotonic-schedule}
+\includegraphics[width=\linewidth]{1-rate-monotonic-schedule}
 
 \item \textbf{Calibrating execution time}
 
@@ -48,14 +48,19 @@ Running the rms on a single core produces the following output:
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{3-rms-output}
 \end{figure}
+        Comparing the command output to the theoretical schedule, one can easily verify that indeed the jobs run according to the schematic. While there are minor differences in the order of completion, the \textbf{Released} field reveals when each job was started, which matches the theory.
 
 \item \textbf{Adding the additional task  $\tau_4$}
-
+    A new task $\tau_4$ is added:
+        \[\tau_4 = (\phi = 100, T = 1200, C = 200, D = 1200)\]
+        Since it has twice the computing time of the other tasks, it can be broken down into two time units and added to the schedule. Starting at $t = 600$ it gets pre-empted by $\tau_1$ due to its higher priority and will have to wait until $t = 1100$ when there are no other tasks pending in order to resume and finish its work.
 \begin{figure}[H]
         \includegraphics[width=\linewidth]{4-1-rms2-schedule}
 \end{figure}
-RMS2 output:
+        The output produced by rms2 (the value of Calibration was increased to 1280):
 \begin{figure}[H]
         \includegraphics[width=\linewidth]{4-rms2-output}
 \end{figure}
+        Here one can clearly see the program struggling to keep the deadlines. While $\tau_4$ manages to complete just in time during hyperperiod 1, it doesn't make it in time during hyperperiod 2 and is thus way over deadline when i finally completes at the end of hyperperiod 3. Other tasks also have problems, which is not unexpected since the system is now being utilized at a much higher rate ($U = 11/12 \approx 0.92$).
+
 \end{enumerate}

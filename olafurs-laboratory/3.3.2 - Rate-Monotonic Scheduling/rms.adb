@@ -10,14 +10,14 @@ procedure RMS is
     package Duration_IO is new Ada.Text_IO.Fixed_IO(Duration);
     package Int_IO is new Ada.Text_IO.Integer_IO(Integer);
 
-    Start : constant Time := Clock; -- Start Time of the System
+    Start : Time; -- Start Time of the System
     --Calibrator: constant Integer := 1150; -- Calibration for correct timing
     Calibrator: constant Integer := 1208; -- Calibration for correct timing
     -- ==> Change parameter for your architecture!
     Warm_Up_Time: constant Integer := 100; -- Warmup time in milliseconds
     HyperperiodLength: Time_Span := Milliseconds(1200);
     CurrentHyperperiod: Integer := 1;
-    NextHyperperiod: Time:= Start + HyperperiodLength + Milliseconds(Warm_Up_Time);
+    NextHyperperiod: Time;
 
     -- Conversion Function: Time_Span to Float
     function To_Float(TS : Time_Span) return Float is
@@ -62,15 +62,16 @@ procedure RMS is
         ColorCode : String := "[" & Trim(Color'Img, Ada.Strings.Left) & "m";
     begin
         -- Initial Release - Phase
-        Release := Clock + Milliseconds(Phase);
+        Release := Start + Milliseconds(Phase);
         delay until Release;
+        
         Next := Release;
         Iterations := 0;
         Average_Response := 0.0;
         WCRT := Milliseconds(0);
         loop
             Released := Clock;
-            if (Release > NextHyperperiod) then
+            if (Released > NextHyperperiod) then
                 NextHyperperiod := NextHyperperiod + HyperperiodLength;
                 CurrentHyperperiod := CurrentHyperperiod + 1;
                 New_Line(1);
@@ -128,11 +129,14 @@ procedure RMS is
         -- Period 2000, 
         -- Computation Time: 1000 (if correctly calibrated) 
         -- Relative Deadline: 2000
+    -- Task set T_1
     Task_1 : T(1, 20 - 3, Warm_Up_Time, 300, 100, 300, 33); -- ID: 1
     Task_2 : T(2, 20 - 4, Warm_Up_Time, 400, 100, 400, 31); -- ID: 2
     Task_3 : T(3, 20 - 6, Warm_Up_Time, 600, 100, 600, 32); -- ID: 3
 
     -- Main Program: Terminates after measuring start time	
 begin
+    Start  := Clock; -- Start Time of the System
+    NextHyperperiod := Start + HyperperiodLength + Milliseconds(Warm_Up_Time);
     null;
 end RMS;
