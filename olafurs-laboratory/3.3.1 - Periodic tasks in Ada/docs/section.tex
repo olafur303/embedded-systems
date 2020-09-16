@@ -4,5 +4,36 @@
 
 \subsubsection{Periodic tasks in Ada}
 
-TODO
 
+Format:
+\[\tau(\phi, T, C, D)\]
+
+Tasks:
+\[\tau_1(T_1 = 900, , 300)\]
+Task 2,3 and 5 are released at $t = 1.000$, task 2 finishes first, then task 6 so:
+\[P_2 > P_6 > P_5\]
+
+Task 3 is released at $t = 1.200$, pre-empting task 5.
+\[P_3 > P_5\]
+
+Task 2,6,3 and 5 seem to have a higher priority than task 4 since it finishes at $t = 1.396$ despite being scheduled to start at $t = 0.900$.
+
+\[P_2 > P_6 > P_5 > P_4\]
+
+
+Tasks 3 and 2 are scheduled to start at the same time at $t = 2.000$. Obviously task 3 has a higher priority than task 2.
+
+\[P_3 > P_2 > P_6 > P_5 > P_4\]
+
+Tasks 2 and 1 are scheduled to be released at the same time at $t = 3.500$. Task 2 seems to have higher priority since task 1 has to wait. Also task 1 has to wait for task 3 which starts at $t = 3.600$.
+
+\[P_2 > P_1\]
+\[P_3 > P_1\]
+
+Task 1 and 6 are both scheduled to start at $t = 6.200$. In this case, task 1 starts first due to higher priority.
+
+\[P_1 > P_6\]
+
+Which leads to:
+
+\[P_3 > P_2 > P_1 > P_6 > P_5 > P_4\]
