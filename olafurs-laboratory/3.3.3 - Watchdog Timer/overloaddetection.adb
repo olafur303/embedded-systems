@@ -11,7 +11,9 @@ procedure OverloadDetection is
     package Int_IO is new Ada.Text_IO.Integer_IO(Integer);
 
     Start : constant Time := Clock; -- Start Time of the System
-    Calibrator: constant Integer := 1208; -- Calibration for correct timing
+    --Calibrator: constant Integer := 1208; -- Calibration for correct timing
+    Calibrator: constant Integer := 1000; -- Calibration for correct timing
+    --Calibrator: constant Integer := 1400; -- Calibration for correct timing
     -- ==> Change parameter for your architecture!
     Warm_Up_Time: constant Integer := 100; -- Warmup time in milliseconds
     HyperperiodLength: Time_Span := Milliseconds(1200);
@@ -41,33 +43,8 @@ procedure OverloadDetection is
         return X;
     end F;
 
-    task WatchdogTimer is
-        entry SignalOk;
-    end WatchdogTimer;
 
-    task body WatchdogTimer is
-        -- 12 time units (100ms each)
-        CounterPreloadValue : Integer := 12;
-        Counter : Integer := CounterPreloadValue;
-    begin
-        loop
-            -- When the counter reaches 0, issue a warning.
-            if (Counter = 0) then
-                Put_Line("WARNING: Watchdog timer timeout");
-                Counter := CounterPreloadValue;
-            end if;
-            select
-                accept SignalOk do
-                    -- Reset counter to its preloaded value
-                    Counter := CounterPreloadValue;
-                    end SignalOk;
-                or
-                delay 0.1;
-            end select;
 
-            Counter := Counter - 1;
-        end loop;
-    end WatchdogTimer;
 
     -- Workload Model for a Parametric Task
     task type T(Id: Integer; Prio: Integer; Phase: Integer; Period : Integer; 
@@ -144,11 +121,93 @@ procedure OverloadDetection is
             New_Line(1);
             Release := Next;
 
-            -- Signal the watchdog at the end of an task.
-            WatchdogTimer.SignalOk;
+
             delay until Release;
         end loop;
     end T;
+
+
+    task WatchdogTimer is
+        pragma Priority(60);
+        entry SignalOk;
+    end WatchdogTimer;
+
+    task body WatchdogTimer is
+        -- 12 time units (100ms each)
+        Release : Time;
+        CounterPreloadValue : Integer := 120;
+        Counter : Integer := CounterPreloadValue;
+    begin
+        Release := Clock + Milliseconds(Warm_Up_Time);
+        delay until Release;
+        Put_Line("Watchdog timer started");
+        loop
+            Release := Release + Milliseconds(10);
+            -- When the counter reaches 0, issue a warning.
+            if (Counter = 0) then
+                Put_Line("WARNING: Watchdog timer timeout");
+                Counter := CounterPreloadValue;
+            end if;
+            select
+                accept SignalOk do
+                    -- Reset counter to its preloaded value
+                    Put("WatchdogTimer.SignalOk received at: ");
+                    Duration_IO.Put(To_Duration(Clock - Start), 2, 3);
+                    Put(", counter at: " & Counter'Img);
+                    New_Line(1);
+                    Counter := CounterPreloadValue;
+                end SignalOk;
+                or
+                    delay until Release;
+            end select;
+
+            Counter := Counter - 1;
+        end loop;
+    end WatchdogTimer;
+
+
+    task OverloadDetection is
+        pragma Priority(2); -- A higher number gives a higher priority
+    end OverloadDetection;
+
+    task body OverloadDetection is
+        Release : Time;
+        Deadline : Time;
+        Difference: Duration;
+    begin
+        Put("OverloadDetection task started at: ");
+        --time we started the overload detection program
+        Duration_IO.Put(To_Duration(Clock - Start), 2, 3);
+        New_Line(1);
+        
+        Release := Clock + Milliseconds(Warm_Up_Time);
+        Deadline := Release + Milliseconds(1200);
+        delay until Release;
+        
+        loop
+            Difference := To_Duration(Clock - Deadline);  
+            if (Clock > Deadline) then
+                Put("Overload detected, hyperperiod ");
+                Duration_IO.Put((Difference), 2, 3);
+                Put(" over deadline");
+                New_Line(1);
+            else
+                Put("No overload. Hyperperiod finished at: ");
+                Duration_IO.Put(To_Duration(Clock - Start), 2, 3);
+                Put(", ");
+                Duration_IO.Put((Difference), 2, 3);
+                Put(" below deadline");
+                New_Line(1);
+            end if;
+
+            -- Signal the watchdog at the end of an task.
+            Release := Release + Milliseconds(1200);
+            Deadline := Deadline + Milliseconds(1200);
+            
+            WatchdogTimer.signalOk;
+            delay until Release;
+        end loop;
+    end OverloadDetection;
 
     -- Running Tasks
     -- NOTE: All tasks should have a minimum phase, so that they have the same time base!
@@ -162,7 +221,7 @@ procedure OverloadDetection is
     Task_1 : T(1, 20 - 3, Warm_Up_Time, 300, 100, 300, 33); -- ID: 1
     Task_2 : T(2, 20 - 4, Warm_Up_Time, 400, 100, 400, 31); -- ID: 2
     Task_3 : T(3, 20 - 6, Warm_Up_Time, 600, 100, 600, 32); -- ID: 3
-    Task_4 : T(4, 20 - 12, Warm_Up_Time, 1200, 200, 1200, 36); -- ID: 4
+--    Task_4 : T(4, 20 - 12, Warm_Up_Time, 1200, 200, 1200, 36); -- ID: 4
 
     -- Main Program: Terminates after measuring start time	
 begin
